@@ -154,17 +154,18 @@ section li {
     line-height: 1.5;
 }
 
+/* ===== GALLERY – UPDATED ===== */
 .cat-container {
     background: #fa9ac0b3;
     border-radius: 20px;
-    padding: 20px;
+    padding: 25px;
     transition: background 0.3s;
 }
 
 .cat {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 25px 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 25px;
     justify-items: center;
     text-align: center;
 }
@@ -172,13 +173,13 @@ section li {
 .item p {
     font-weight: bold;
     color: #ED11B2;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     font-size: 1.1rem;
 }
 
 .small-img {
-    width: 150px;
-    height: 150px;
+    width: 220px;
+    height: 220px;
     object-fit: cover;
     border-radius: 16px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
@@ -191,6 +192,7 @@ section li {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* ===== CONTACT FORM ===== */
 .contact-container {
     background: #f8fafc;
     padding: 25px 30px;
@@ -301,6 +303,7 @@ a:hover {
     text-decoration: underline;
 }
 
+/* ===== DARK MODE ===== */
 .dark-mode {
     background: #121212;
     color: #eee;
@@ -417,6 +420,7 @@ a:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
+/* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
     body {
         padding: 16px 10px;
@@ -455,14 +459,15 @@ a:hover {
         height: 140px;
     }
 
-    .small-img {
-        width: 120px;
-        height: 120px;
+    /* ===== MOBILE GALLERY ===== */
+    .cat {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
     }
 
-    .cat {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 15px;
+    .small-img {
+        width: 150px;
+        height: 150px;
     }
 
     .contact-container {
