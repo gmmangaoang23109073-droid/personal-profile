@@ -4,25 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Glaiza Mangaoang</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <header class="header">
-
         <nav>
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="gallery.html">Gallery</a>
             <a href="contact.html">Contact</a>
-
-            <button id="darkModeToggle" class="dark-btn">
-                🌙
-            </button>
+            <button id="darkModeToggle" class="dark-btn">🌙</button>
         </nav>
-
     </header>
 
     <main class="container">
@@ -33,35 +26,19 @@
             If you have any questions or inquiries, feel free to reach out to me using the form below. I will do my best to respond as soon as possible.
         </p>
 
-        <form id="contactForm">
+        <!-- ✅ Added contact-container class here -->
+        <form id="contactForm" class="contact-container">
 
-            <input
-                type="text"
-                id="name"
-                placeholder="Your Name"
-                required>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
 
-            <br><br>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
 
-            <input
-                type="email"
-                id="email"
-                placeholder="Your Email"
-                required>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
 
-            <br><br>
-
-            <textarea
-                id="message"
-                placeholder="Your Message"
-                rows="5"
-                required></textarea>
-
-            <br><br>
-
-            <button type="submit">
-                Send Message
-            </button>
+            <button type="submit">Send Message</button>
 
         </form>
 
@@ -71,16 +48,14 @@
 
         <h2>Other Ways to Contact Me</h2>
 
-        <p>
-            Email:
-            gmmangaoang23109073@student.dmmmsu.edu.ph
-        </p>
-
-        <p>Facebook: <a href="https://www.facebook.com/share/18sBQXDy2T/?mibextid=wwXIfr" target="_blank">Glaiza Mangaoang</a></p>
+        <p><strong>Email:</strong> gmmangaoang23109073@student.dmmmsu.edu.ph</p>
+        <p><strong>Facebook:</strong> <a href="https://www.facebook.com/share/18sBQXDy2T/?mibextid=wwXIfr" target="_blank">Glaiza Mangaoang</a></p>
+        <p><strong>Instagram:</strong> <a href="https://www.instagram.com/_glxza?igsh=MW14dXhxNTRoeWJmbw%3D%3D&utm_source=qr" target="_blank">_glxza</a></p>
 
     </main>
 
     <script type="module" src="contact.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
