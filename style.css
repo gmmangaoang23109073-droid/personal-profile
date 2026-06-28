@@ -1,0 +1,454 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(to right, #dbeafe, #eff6ff);
+    min-height: 100vh;
+    padding: 30px 20px;
+    color: #333;
+    transition: background 0.3s, color 0.3s;
+}
+
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 35px 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+
+.header {
+    max-width: 900px;
+    margin: 0 auto 25px auto;
+    background: #8e0565;
+    padding: 12px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(142, 5, 101, 0.3);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 30px;
+    transition: background 0.2s, transform 0.2s;
+    font-size: 1rem;
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+nav a.active {
+    background: #ffffff !important;
+    color: #8e0565 !important;
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark mode toggle button inside nav */
+.dark-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    color: #fff;
+    padding: 0;
+    line-height: 1;
+}
+
+.dark-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+
+.profile-pic {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 15px;
+    border: 5px solid #ED11B2;
+    box-shadow: 0 4px 14px rgba(237, 17, 178, 0.25);
+    transition: border-color 0.3s;
+}
+
+
+h1 {
+    text-align: center;
+    color: #ED11B2;
+    margin-bottom: 5px;
+    font-size: 2rem;
+}
+
+h2 {
+    color: #ED11B2;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.5rem;
+}
+
+h3 {
+    color: #8e0565;
+    margin: 20px 0 8px 0;
+}
+
+
+.text {
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.course {
+    text-align: center;
+    color: #444;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+p {
+    line-height: 1.7;
+}
+
+
+
+/*About page*/
+section {
+    margin-top: 25px;
+    padding: 20px 22px;
+    background-color: #f8fafc;
+    border-left: 5px solid #ED11B2;
+    border-radius: 12px;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+section ul {
+    padding-left: 22px;
+    margin: 8px 0;
+}
+
+section li {
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+
+
+/*GALLERY (cats)*/
+.cat-container {
+    background: #fa9ac0b3;
+    border-radius: 20px;
+    padding: 20px;
+    transition: background 0.3s;
+}
+
+.cat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 25px 20px;
+    justify-items: center;
+    text-align: center;
+}
+
+.item p {
+    font-weight: bold;
+    color: #ED11B2;
+    margin-bottom: 6px;
+    font-size: 1.1rem;
+}
+
+.small-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: block;
+}
+
+.small-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+/*CONTACT FORM*/
+.contact-container {
+    background: #f8fafc;
+    padding: 25px 30px;
+    border-radius: 16px;
+    margin-top: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background 0.3s;
+}
+
+.contact-container label {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 4px;
+    transition: color 0.3s;
+}
+
+.contact-container input,
+.contact-container textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border 0.25s, background 0.3s, color 0.3s;
+    background: #fff;
+    color: #333;
+}
+
+.contact-container input:focus,
+.contact-container textarea:focus {
+    outline: none;
+    border-color: #ED11B2;
+    box-shadow: 0 0 0 3px rgba(237, 17, 178, 0.15);
+}
+
+.contact-container textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-container button {
+    background: #ED11B2;
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.2s;
+    display: inline-block;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+}
+
+.contact-container button:hover {
+    background: #b80d8b;
+    transform: scale(1.03);
+}
+
+/*LINKS*/
+a {
+    color: #ED11B2;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.2s, text-decoration 0.2s;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+.dark-mode {
+    background: #121212;
+    color: #eee;
+}
+
+.dark-mode .container {
+    background: #1f1f1f;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.dark-mode .header {
+    background: #2a0a1f;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode nav a {
+    color: #f0d6e8;
+}
+
+.dark-mode nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .dark-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f0d6e8;
+}
+
+.dark-mode .dark-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode .item p {
+    color: #f48bc6;
+}
+
+.dark-mode h3 {
+    color: #d48ab5;
+}
+
+.dark-mode .course {
+    color: #ccc;
+}
+
+.dark-mode section {
+    background: #2c2c2c;
+    border-left-color: #f48bc6;
+}
+
+.dark-mode .cat-container {
+    background: #3a2a34;
+}
+
+.dark-mode .contact-container {
+    background: #2c2c2c;
+}
+
+.dark-mode .contact-container label {
+    color: #eee;
+}
+
+.dark-mode .contact-container input,
+.dark-mode .contact-container textarea {
+    background: #3a3a3a;
+    border-color: #555;
+    color: #eee;
+}
+
+.dark-mode .contact-container input:focus,
+.dark-mode .contact-container textarea:focus {
+    border-color: #f48bc6;
+    box-shadow: 0 0 0 3px rgba(244, 139, 198, 0.2);
+}
+
+.dark-mode .contact-container button {
+    background: #b80d8b;
+}
+
+.dark-mode .contact-container button:hover {
+    background: #9e0a77;
+}
+
+.dark-mode a {
+    color: #f48bc6;
+}
+
+.dark-mode .profile-pic {
+    border-color: #f48bc6;
+}
+
+.dark-mode .small-img {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode nav a.active {
+    background: #3a2a34;
+    color: #f48bc6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+@media (max-width: 600px) {
+    body {
+        padding: 16px 10px;
+    }
+
+    .container {
+        padding: 20px 16px;
+    }
+
+    .header {
+        padding: 10px 12px;
+        border-radius: 30px;
+    }
+
+    nav {
+        gap: 6px 12px;
+    }
+
+    nav a {
+        font-size: 0.9rem;
+        padding: 4px 10px;
+    }
+
+    
+
+    .dark-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .profile-pic {
+        width: 140px;
+        height: 140px;
+    }
+
+    .small-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .cat {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+    }
+
+    .contact-container {
+        padding: 18px 16px;
+    }
+
+    section {
+        padding: 14px 16px;
+    }
+
+   
+}
