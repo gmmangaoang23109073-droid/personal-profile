@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Glaiza Mangaoang</title>
-    <link rel="stylesheet" href="style.css?v=1">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
@@ -14,32 +14,26 @@
             <a href="about.html">About</a>
             <a href="gallery.html">Gallery</a>
             <a href="contact.html">Contact</a>
-            <button id="darkModeToggle" class="dark-btn">🌙</button>
+            <button id="darkModeToggle" class="dark-btn" aria-label="Toggle dark mode">🌙</button>
         </nav>
     </header>
 
     <div class="container">
-
         <h1>Contact Me</h1>
+        <p>If you have any questions or inquiries, feel free to reach out!</p>
 
-        <p>
-            If you have any questions or inquiries, feel free to reach out to me using the form below. I will do my best to respond as soon as possible.
-        </p>
-
-        <!-- ✅ The form MUST have class="contact-container" -->
+        <!-- CONTACT FORM -->
         <form id="contactForm" class="contact-container">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required autocomplete="name">
 
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required autocomplete="email">
 
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Your Email" required>
-
-            <label for="message">Message</label>
+            <label for="message">Message *</label>
             <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
 
-            <button type="submit">Send Message</button>
-
+            <button type="submit" id="submitBtn">Send Message</button>
         </form>
 
         <p id="status"></p>
@@ -48,14 +42,254 @@
 
         <h2>Other Ways to Contact Me</h2>
 
-        <p><strong>Email:</strong> <a href="mailto:gmmangaoang23109073@student.dmmmsu.edu.ph" target="_blank">gmmangaoang23109073@student.dmmmsu.edu.ph</a></p>
-        <p><strong>Facebook:</strong> <a href="https://www.facebook.com/share/18sBQXDy2T/?mibextid=wwXIfr" target="_blank">Glaiza Mangaoang</a></p>
-        <p><strong>Instagram:</strong> <a href="https://www.instagram.com/_glxza?igsh=MW14dXhxNTRoeWJmbw%3D%3D&utm_source=qr" target="_blank">_glxza</a></p>
-
+        <p><strong>Email:</strong> 
+            <a href="mailto:gmmangaoang23109073@student.dmmmsu.edu.ph">
+                gmmangaoang23109073@student.dmmmsu.edu.ph
+            </a>
+        </p>
+        <p><strong>Facebook:</strong> 
+            <a href="https://www.facebook.com/share/18sBQXDy2T/?mibextid=wwXIfr" target="_blank">
+                Glaiza Mangaoang
+            </a>
+        </p>
+        <p><strong>Instagram:</strong> 
+            <a href="https://www.instagram.com/_glxza?igsh=MW14dXhxNTRoeWJmbw%3D%3D&utm_source=qr" target="_blank">
+                _glxza
+            </a>
+        </p>
     </div>
 
+    <!-- 🔥 Firebase CDN Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- 🔥 Your Firebase Config + Form Code -->
+    <script>
+        // ===================================================
+        // 🔥 YOUR FIREBASE CONFIG (From Firebase Console)
+        // ===================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDgov6eIFkxfVXGqa6kThaV2GB270iqmtk",
+            authDomain: "personal-portfolio-82949.firebaseapp.com",
+            projectId: "personal-portfolio-82949",
+            storageBucket: "personal-portfolio-82949.firebasestorage.app",
+            messagingSenderId: "631422494911",
+            appId: "1:631422494911:web:b714b57eeab6357e1fbe0a"
+        };
+
+        console.log("🚀 Firebase Config loaded");
+
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            console.log("✅ Firebase initialized successfully!");
+            console.log("📁 Project ID:", firebaseConfig.projectId);
+            
+            // Test connection
+            db.collection("test").add({
+                test: "connection",
+                time: new Date().toISOString()
+            })
+            .then((docRef) => {
+                console.log("✅ Firebase connection test passed! Test ID:", docRef.id);
+            })
+            .catch((err) => {
+                console.error("❌ Firebase connection test failed:", err);
+                console.error("Error Code:", err.code);
+                console.error("Error Message:", err.message);
+            });
+            
+        } catch (error) {
+            console.error("❌ Firebase initialization error:", error);
+            alert("Firebase initialization failed! Check your configuration.");
+        }
+
+        // ===================================================
+        // FORM HANDLING
+        // ===================================================
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("📄 DOM loaded");
+            
+            const form = document.getElementById("contactForm");
+            const statusMsg = document.getElementById("status");
+            const submitBtn = document.getElementById("submitBtn");
+
+            if (!form) {
+                console.error("❌ Form not found!");
+                return;
+            }
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                console.log("📝 Form submitted");
+
+                const name = document.getElementById("name").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const message = document.getElementById("message").value.trim();
+
+                // Validation
+                if (!name || !email || !message) {
+                    showStatus("Please fill in all fields.", "error");
+                    return;
+                }
+
+                // Email validation
+                if (!isValidEmail(email)) {
+                    showStatus("Please enter a valid email address.", "error");
+                    return;
+                }
+
+                // Disable button
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = "⏳ Sending...";
+                }
+                
+                showStatus("Sending your message...", "loading");
+
+                try {
+                    console.log("💾 Saving to Firebase...");
+                    
+                    // Get database reference
+                    const db = firebase.firestore();
+                    
+                    // Add document to "messages" collection
+                    const docRef = await db.collection("messages").add({
+                        name: name,
+                        email: email,
+                        message: message,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        date: new Date().toISOString(),
+                        status: "unread"
+                    });
+
+                    console.log("✅ Message saved! Document ID:", docRef.id);
+                    showStatus("✅ Message sent successfully! I'll get back to you soon.", "success");
+                    form.reset();
+
+                    // Auto-hide success
+                    setTimeout(() => {
+                        statusMsg.textContent = "";
+                        statusMsg.className = "";
+                        statusMsg.style.display = "none";
+                    }, 5000);
+
+                } catch (error) {
+                    console.error("❌ Firebase Error:", error);
+                    console.error("Error Code:", error.code);
+                    console.error("Error Message:", error.message);
+                    
+                    let errorMessage = "❌ Error sending message. ";
+                    
+                    if (error.code === "permission-denied") {
+                        errorMessage += "Permission denied. Please check Firebase security rules.";
+                    } else if (error.code === "unavailable") {
+                        errorMessage += "Service unavailable. Please check your internet connection.";
+                    } else if (error.code === "not-found") {
+                        errorMessage += "Database not found. Please check your project ID.";
+                    } else if (error.code === "invalid-argument") {
+                        errorMessage += "Invalid configuration. Please check your Firebase config.";
+                    } else if (error.message) {
+                        errorMessage += error.message;
+                    }
+                    
+                    showStatus(errorMessage, "error");
+
+                } finally {
+                    // Re-enable button
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = "Send Message";
+                    }
+                }
+            });
+
+            // Helper Functions
+            function showStatus(message, type = "info") {
+                const statusMsg = document.getElementById("status");
+                if (!statusMsg) return;
+                
+                statusMsg.textContent = message;
+                statusMsg.className = type;
+                statusMsg.style.display = "block";
+                console.log("📢 Status:", type, message);
+                
+                // Auto-clear error/loading after 5 seconds
+                if (type === "error" || type === "loading") {
+                    setTimeout(() => {
+                        if (statusMsg.textContent === message) {
+                            statusMsg.textContent = "";
+                            statusMsg.className = "";
+                            statusMsg.style.display = "none";
+                        }
+                    }, 5000);
+                }
+            }
+
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            // Real-time validation
+            const nameInput = document.getElementById("name");
+            const emailInput = document.getElementById("email");
+            const messageInput = document.getElementById("message");
+
+            // Clear status on input
+            [nameInput, emailInput, messageInput].forEach(input => {
+                if (input) {
+                    input.addEventListener("input", () => {
+                        if (statusMsg && statusMsg.className !== "error") {
+                            statusMsg.textContent = "";
+                            statusMsg.className = "";
+                            statusMsg.style.display = "none";
+                        }
+                        input.classList.remove("error");
+                    });
+                }
+            });
+
+            // Real-time email validation
+            if (emailInput) {
+                emailInput.addEventListener("blur", () => {
+                    const email = emailInput.value.trim();
+                    if (email && !isValidEmail(email)) {
+                        emailInput.classList.add("error");
+                        showStatus("Please enter a valid email address.", "error");
+                    } else {
+                        emailInput.classList.remove("error");
+                    }
+                });
+            }
+
+            // Character counter
+            if (messageInput) {
+                const maxLength = 5000;
+                let counter = document.getElementById("charCount");
+                
+                if (!counter) {
+                    counter = document.createElement("small");
+                    counter.id = "charCount";
+                    counter.style.display = "block";
+                    counter.style.textAlign = "right";
+                    counter.style.marginTop = "4px";
+                    counter.style.fontSize = "0.85rem";
+                    counter.style.color = "#888";
+                    messageInput.parentNode.appendChild(counter);
+                }
+                
+                messageInput.addEventListener("input", () => {
+                    const count = messageInput.value.length;
+                    counter.textContent = `${count}/${maxLength} characters`;
+                    counter.style.color = count > maxLength * 0.9 ? "#c62828" : "#888";
+                });
+            }
+        });
+    </script>
+
     <script src="script.js"></script>
-    <script type="module" src="contact.js"></script>
 
 </body>
 </html>
